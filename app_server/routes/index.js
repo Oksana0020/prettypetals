@@ -12,3 +12,5 @@ router.get('/data', ctrlData.data);
 
 module.exports = router;
 
+
+

@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  h1 Welcome to the Login Page
+  h1 Please enter your credentials
+
+  #login
+  h3.text-center.text-white.pt-5 Login form
+  .container
+    #login-row.row.justify-content-center.align-items-center
+      #login-column.col-md-6
+        #login-box.col-md-12
+          form#login-form.form(action='', method='post')
+            h3.text-center.text-info Login to PrettyPetals
+            .form-group
+              label.text-info(for='username') Username:
+              br
+              input#username.form-control(type='text', name='username')
+            .form-group
+              label.text-info(for='password') Password:
+              br
+              
+              input#password.form-control(type='text', name='password')
+            .form-group
+              label.text-info(for='remember-me')
+                span Remember me
+                span
+                  input#remember-me(name='remember-me', type='checkbox')
+              br
+              br
+              input.btn.btn-info.btn-md(type='submit', name='submit', value='submit')
+            
+
+

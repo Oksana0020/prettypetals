@@ -7,7 +7,33 @@ html
     link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    // Navigation bar
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      .container
+        // Brand name
+        a.navbar-brand(href='/data') PrettyPetals
+        // Toggle button for mobile view
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarText', aria-controls='navbarText', aria-expanded='false', aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+        // Collapsible navigation links
+        #navbarText.collapse.navbar-collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item.active
+              a.nav-link(href='/login') Login
+            li.nav-item
+              a.nav-link(href='/registration') Register
+            li.nav-item
+              a.nav-link(href='/data') Data
+        // Additional navbar text (if required)
+        span.navbar-text
+          | Welcome to PrettyPetals - your guide to cherish your flowers
+    .container
+      block content
+      footer
+        .row
+          .col-12
+            small &copy; Oksana Fursa 2024
+    // Scripts for jQuery, Tether (if using Bootstrap 4), and Bootstrap
     script(src='https://code.jquery.com/jquery-3.1.1.slim.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
     script(src='/javascripts/bootstrap.min.js')

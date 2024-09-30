@@ -1,14 +1,15 @@
 /* GET 'login' page */
 const login = function(req, res) {
-  res.render('index', { title: 'Login' });
+  res.render('login', { title: 'Login' });
 };
 
-/* GET 'registration' page */
+/* GET 'Register' page */
 const register = function(req, res) {
-  res.render('index', { title: 'Register' });
+  res.render('registration', { title: 'Register' });
 };
 
 module.exports = {
   login,
   register
 };
+
