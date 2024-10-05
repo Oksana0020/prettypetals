@@ -18,6 +18,15 @@ body {
   font-weight: bold;
 }
 
+.navbar-brand:hover {
+  color: #ff9f1a; 
+}
+
+.navbar-text {
+  color: #ff9f1a; 
+  font-weight: bold;
+}
+
 .navbar-nav .nav-link {
   color: #ffffff; 
   font-size: 1.2rem;
@@ -55,10 +64,15 @@ button:hover, .btn:hover {
   background-color: #66bb6a; 
 }
 
+.vote strong:hover {
+  color: #ff9f1a; 
+  cursor: pointer; 
+}
+
 /* Footer */
 footer {
   background-color: #388e3c; 
-  color: #ffffff; /* White footer text */
+  color: #ffffff; 
   padding: 20px 0;
   text-align: center;
 }
@@ -72,7 +86,7 @@ input[type="text"], input[type="password"], input[type="email"] {
   border-radius: 4px;
   box-sizing: border-box;
   background-color: #e8f5e9; 
-  color: #2e7d32; /* Dark green text */
+  color: #2e7d32; 
 }
 
 input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
@@ -81,8 +95,12 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
 }
 
 /* Headings */
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h6 {
   color: #1b5e20; 
+}
+
+h5 {
+  color: #ff9f1a; 
 }
 
 /* Links */
