@@ -1,8 +1,10 @@
 /* GET 'data' page */
 const data = function(req, res) {
-  res.render('index', { title: 'Data' });
+  console.log('Data page requested');
+  res.render('data', { title: 'Data' });
 };
 
 module.exports = {
   data
 };
+
