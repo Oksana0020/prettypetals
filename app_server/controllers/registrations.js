@@ -34,9 +34,14 @@ const register = function(req, res) {
 /* GET 'login' page */
 const login = function(req, res) {
   const info = { 
-    title: 'Login'
+    title: 'Login',
+    pageHeader: { 
+      title: 'Welcome Back',
+      strapline: 'Please log in to PrettyPetals portal'
+    },
+    error: null 
   };
-  
+
   console.log('Info sent to login.pug:', info); 
   res.render('login', { info }); 
 };

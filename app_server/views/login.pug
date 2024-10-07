@@ -5,6 +5,11 @@ block content
     .main
       .main-center
         h5= info.title  
+        h1= info.pageHeader.title
+        small &nbsp;#{info.pageHeader.strapline}
+        if info.error
+          p.alert.alert-danger= info.error 
+
         form(method='post', action='/login')
           .form-group
             label(for='username') Username
@@ -19,4 +24,3 @@ block content
                 i.fa.fa-lock.fa-lg(aria-hidden='true')
               input#password.form-control(type='password', name='password', placeholder='Enter your Password')
           button(type='submit') Log In
-
