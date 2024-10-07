@@ -3,51 +3,50 @@ extends layout
 block content
   .container
     .card
-      .container-fliud
+      .container-fluid
         .wrapper.row
           .preview.col-md-6
             .preview-pic.tab-content
               #pic-1.tab-pane.active
-                img(src='../images/1.jpg')  
-                <!-- https://www.pexels.com/photo/close-up-of-vibrant-red-dahlia-flower-bloom-28754059/ -->
+                img(src=data.flower.picture)
           .details.col-md-6
             .title-wrapper
-              h3.product-title Dahlia
+              h3.flower-title= data.flower.name
               button.like.btn.btn-default(type='button')
                 span.fa.fa-heart
             .rating
               .stars
-                span.fa.fa-star.checked
-                span.fa.fa-star.checked
-                span.fa.fa-star.checked
-                span.fa.fa-star
-                span.fa.fa-star
-            p.product-description
-              | Dahlias are perennial plants with tuberous roots, though they are grown as annuals in some regions with cold winters. While some have herbaceous stems, others have stems which lignify in the absence of secondary tissue and resprout following winter dormancy, allowing further seasons of growth.[5] As a member of the Asteraceae, the dahlia has a flower head that is actually a composite (hence the older name Compositae) with both central disc florets and surrounding ray florets. Each floret is a flower in its own right, but is often incorrectly described as a petal. The modern name Asteraceae refers to the appearance of a star with surrounding rays.
+                - for (let i = 0; i < data.flower.rating; i++)
+                  span.fa.fa-star.checked
+                - for (let i = 0; i < 5 - data.flower.rating; i++)
+                  span.fa.fa-star
+            p.flower-description= data.flower.description
             .action
               button.add-to-cart.btn.btn-default(type='button') Care guiding tips
             h4.price
               | Level   
-              span beginner
+              span= data.flower.careGuide.level
             h4.price
               | Temperature   
-              span 29°C
+              span= data.flower.careGuide.temperature
             h4.price
               | Light     
-              span full sun
+              span= data.flower.careGuide.light
             h4.price
               | Watering   
-              span every week
+              span= data.flower.careGuide.water
             h4.price
               | Fertilizing   
-              span high in potassium and phosphorus
+              span= data.flower.careGuide.fertilize
             h4.price
               | Bloom time   
-              span summer, autumn
+              span= data.flower.careGuide.bloomTime
             p.vote
-              strong 53
-              |  PrettyPetals club members enjoyed this flower! 
-              strong (53 votes)
+              strong= data.flower.votes
+              | PrettyPetals club members enjoyed this flower! 
+              strong (#{data.flower.votes} votes)
+
+              
 
   .container
     .card
@@ -241,3 +240,33 @@ block content
               strong 48
               |  PrettyPetals club members enjoyed this flower! 
               strong (48 votes)
+
+  .container
+    .card
+      .card-header
+        | Quote
+      .card-body
+        blockquote.blockquote.mb-0
+          p 
+            | They are autographs of angels, penned
+            br
+            | In Nature’s green-leaved book, in blended tints,
+            br
+            | Borrowed from rainbows and the sunset skies,
+            br
+            | And written everywhere–on plain and hill,
+            br
+            | In lonely dells, ‘mid crowded haunts of men;
+            br
+            | On the broad prairies, where no eye save God’s
+            br
+            | May read their silent, sacred mysteries. Thank God for flowers!
+            br
+            | They gladden human hearts; Seraphic breathings part their fragrant lips
+            br
+            | With whisperings of Heaven.
+            br
+          footer.blockquote-footer
+            | Written by 
+            cite(title='Albert Laighton') Albert Laighton
+

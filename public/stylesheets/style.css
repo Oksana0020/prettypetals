@@ -132,7 +132,9 @@ footer {
   bottom: 0;
   width: 100%;
 }
-
+footer.blockquote-footer {
+  color: #ffffff;
+}
 #login .container #login-row #login-column #login-box {
   margin-top: 120px;
   max-width: 600px;
