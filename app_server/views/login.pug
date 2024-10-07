@@ -2,27 +2,21 @@ extends layout
 
 block content
   .container
-    .row
-      .col-12.col-md-6.offset-md-3
-        .main
-          .main-center
-            h5 Login
-            form(method='post', action='#')
-              .form-group
-                label(for='username') Username
-                .input-group
-                  span.input-group-addon
-                    i.fa.fa-users.fa(aria-hidden='true')
-                  input#username.form-control(type='text', name='username', placeholder='Enter your Username')
-              .form-group
-                label(for='password') Password
-                .input-group
-                  span.input-group-addon
-                    i.fa.fa-lock.fa-lg(aria-hidden='true')
-                  input#password.form-control(type='password', name='password', placeholder='Enter your Password')
-              button(type='submit') Login
-            // main-center
-          // main
-        // col-12.col-md-6.offset-md-3
-      // row
-    // container
+    .main
+      .main-center
+        h5= info.title  
+        form(method='post', action='/login')
+          .form-group
+            label(for='username') Username
+            .input-group
+              span.input-group-addon
+                i.fa.fa-users.fa(aria-hidden='true')
+              input#username.form-control(type='text', name='username', placeholder='Enter your Username')
+          .form-group
+            label(for='password') Password
+            .input-group
+              span.input-group-addon
+                i.fa.fa-lock.fa-lg(aria-hidden='true')
+              input#password.form-control(type='password', name='password', placeholder='Enter your Password')
+          button(type='submit') Log In
+
