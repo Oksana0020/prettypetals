@@ -8,45 +8,43 @@ block content
           .preview.col-md-6
             .preview-pic.tab-content
               #pic-1.tab-pane.active
-                img(src=data.flower.picture)
+                img(src=product.picture)  
           .details.col-md-6
             .title-wrapper
-              h3.flower-title= data.flower.name
+              h3.product-title= product.name   
               button.like.btn.btn-default(type='button')
                 span.fa.fa-heart
             .rating
               .stars
-                - for (let i = 0; i < data.flower.rating; i++)
+                - for (let i = 0; i < product.rating; i++)
                   span.fa.fa-star.checked
-                - for (let i = 0; i < 5 - data.flower.rating; i++)
+                - for (let i = 0; i < 5 - product.rating; i++)
                   span.fa.fa-star
-            p.flower-description= data.flower.description
+            p.product-description= product.description 
             .action
               button.add-to-cart.btn.btn-default(type='button') Care guiding tips
             h4.price
               | Level   
-              span= data.flower.careGuide.level
+              span= product.careGuide.level   
             h4.price
               | Temperature   
-              span= data.flower.careGuide.temperature
+              span= product.careGuide.temperature
             h4.price
               | Light     
-              span= data.flower.careGuide.light
+              span= product.careGuide.light
             h4.price
               | Watering   
-              span= data.flower.careGuide.water
+              span= product.careGuide.water
             h4.price
               | Fertilizing   
-              span= data.flower.careGuide.fertilize
+              span= product.careGuide.fertilize
             h4.price
               | Bloom time   
-              span= data.flower.careGuide.bloomTime
+              span= product.careGuide.bloomTime
             p.vote
-              strong= data.flower.votes
-              | PrettyPetals club members enjoyed this flower! 
-              strong (#{data.flower.votes} votes)
-
-              
+              strong= product.votes
+              | PrettyPetals club members enjoyed this flower!
+              strong (#{product.votes} votes)
 
   .container
     .card
