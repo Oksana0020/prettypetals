@@ -48,100 +48,91 @@ block content
 
   .container
     .card
-      .container-fliud
+      .container-fluid
         .wrapper.row
           .preview.col-md-6
             .preview-pic.tab-content
               #pic-1.tab-pane.active
                 img(src='../images/2.jpg')  
-                <!-- https://www.pexels.com/photo/selective-focus-photography-of-pink-and-white-petal-flower-158302/ -->
           .details.col-md-6
             .title-wrapper
-              h3.product-title Chrysanthemum
+              h3.product-title= "Chrysanthemum"
               button.like.btn.btn-default(type='button')
                 span.fa.fa-heart
             .rating
               .stars
-                span.fa.fa-star.checked
-                span.fa.fa-star.checked
-                span.fa.fa-star.checked
-                span.fa.fa-star.checked
-                span.fa.fa-star
-            p.product-description
-              | The genus Chrysanthemum are perennial herbaceous flowering plants, sometimes subshrubs. The leaves are alternate, divided into leaflets and may be pinnatisect, lobed, or serrate (toothed) but rarely entire; they are connected to stalks with hairy bases.The compound inflorescence is an array of several flower heads, or sometimes a solitary head. The head has a base covered in layers of phyllaries. The simple row of ray florets is white, yellow, or red. The disc florets are yellow. Pollen grains are approximately 34 microns.
-
+                - for (let i = 0; i < 4; i++)
+                  span.fa.fa-star.checked
+                - for (let i = 0; i < 1; i++)
+                  span.fa.fa-star
+            p.product-description= "The genus Chrysanthemum are perennial herbaceous flowering plants, sometimes subshrubs. The leaves are alternate, divided into leaflets and may be pinnatisect, lobed, or serrate (toothed) but rarely entire; they are connected to stalks with hairy bases.The compound inflorescence is an array of several flower heads, or sometimes a solitary head. The head has a base covered in layers of phyllaries. The simple row of ray florets is white, yellow, or red. The disc florets are yellow. Pollen grains are approximately 34 microns."
             .action
               button.add-to-cart.btn.btn-default(type='button') Care guiding tips
             h4.price
               | Level   
-              span beginner
+              span= "beginner"
             h4.price
               | Temperature   
-              span 27°C
+              span= "27°C"
             h4.price
               | Light     
-              span 6 hours of sunlight each day
+              span= "6 hours of sunlight each day"
             h4.price
               | Watering   
-              span twice per week
+              span= "twice per week"
             h4.price
               | Fertilizing   
-              span regular high nitrogen and potassium
+              span= "regular high nitrogen and potassium"
             h4.price
               | Bloom time   
-              span summer, autumn
+              span= "summer, autumn"
             p.vote
-              strong 99
+              strong= 99
               |  PrettyPetals club members enjoyed this flower! 
-              strong (99 votes)
+              strong (#{99} votes)
 
   .container
     .card
-      .container-fliud
+      .container-fluid
         .wrapper.row
           .preview.col-md-6
             .preview-pic.tab-content
               #pic-1.tab-pane.active
                 img(src='../images/3.jpg')  
-                <!-- https://www.pexels.com/photo/close-up-of-an-orchid-flower-17322282/ -->
           .details.col-md-6
             .title-wrapper
-              h3.product-title Orchid
+              h3.product-title= "Orchid"
               button.like.btn.btn-default(type='button')
                 span.fa.fa-heart
             .rating
               .stars
-                span.fa.fa-star.checked
-                span.fa.fa-star.checked
-                span.fa.fa-star.checked
-                span.fa.fa-star.checked
-                span.fa.fa-star.checked
-            p.product-description
-              | Orchids are easily distinguished from other plants, as they share some very evident derived characteristics or synapomorphies. Among these are: bilateral symmetry of the flower (zygomorphism), many resupinate flowers, a nearly always highly modified petal (labellum), fused stamens and carpels, and extremely small seeds.Terrestrial orchids may be rhizomatous or form corms or tubers. The root caps of terrestrial orchids are smooth and white. Some sympodial terrestrial orchids, such as Orchis and Ophrys, have two subterranean tuberous roots. One is used as a food reserve for wintry periods, and provides for the development of the other one, from which visible growth develops. In warm and constantly humid climates, many terrestrial orchids do not need pseudobulbs.
+                - for (let i = 0; i < 5; i++)
+                  span.fa.fa-star.checked
+            p.product-description= "Orchids are easily distinguished from other plants, as they share some very evident derived characteristics or synapomorphies. Among these are: bilateral symmetry of the flower (zygomorphism), many resupinate flowers, a nearly always highly modified petal (labellum), fused stamens and carpels, and extremely small seeds.Terrestrial orchids may be rhizomatous or form corms or tubers. The root caps of terrestrial orchids are smooth and white. Some sympodial terrestrial orchids, such as Orchis and Ophrys, have two subterranean tuberous roots. One is used as a food reserve for wintry periods, and provides for the development of the other one, from which visible growth develops. In warm and constantly humid climates, many terrestrial orchids do not need pseudobulbs."
             .action
               button.add-to-cart.btn.btn-default(type='button') Care guiding tips
             h4.price
               | Level   
-              span advanced
+              span= "advanced"
             h4.price
               | Temperature   
-              span 12°C
+              span= "12°C"
             h4.price
               | Light     
-              span indirect sunlight
+              span= "indirect sunlight"
             h4.price
               | Watering   
-              span once every 7 to 10 days
+              span= "once every 7 to 10 days"
             h4.price
               | Fertilizing   
-              span equal amounts of nitrogen, phosphorus and potassium
+              span= "equal amounts of nitrogen, phosphorus and potassium"
             h4.price
               | Bloom time   
-              span early spring, late autumn
+              span= "early spring, late autumn"
             p.vote
-              strong 100
+              strong= 100
               |  PrettyPetals club members enjoyed this flower! 
-              strong (100 votes)
+              strong (#{100} votes)
 
   .container
     .card
