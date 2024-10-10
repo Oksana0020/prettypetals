@@ -2,8 +2,8 @@ const data = function(req, res) {
   res.render('data', {
     title: 'Data',
 
-    // Product 1: Dahlia
-    product: {
+    // Dahlia
+    flower1: {
       name: 'Dahlia',
       picture: '/images/1.jpg',
       rating: 3,
@@ -19,8 +19,8 @@ const data = function(req, res) {
       votes: 53
     },
 
-    // Product 2: Chrysanthemum
-    product2: {
+    // Chrysanthemum
+    flower2: {
       name: 'Chrysanthemum',
       picture: '/images/2.jpg',
       rating: 4,
@@ -36,8 +36,8 @@ const data = function(req, res) {
       votes: 99
     },
 
-    // Product 3: Orchid
-    product3: {
+    // Orchid
+    flower3: {
       name: 'Orchid',
       picture: '/images/3.jpg',
       rating: 5,
@@ -53,8 +53,8 @@ const data = function(req, res) {
       votes: 100
     },
 
-    // Product 4: Iris Planifolia (example with dynamic data from product)
-    product4: {
+    // Iris Planifolia
+    flower4: {
       name: 'Iris Planifolia',
       picture: '/images/4.jpg',
       rating: 3,
@@ -70,8 +70,8 @@ const data = function(req, res) {
       votes: 42
     },
 
-    // Product 5: Myosotis (Forget-Me-Not)
-    product5: {
+    // Myosotis (Forget-Me-Not)
+    flower5: {
       name: 'Myosotis',
       picture: '/images/5.jpg',
       rating: 4,
@@ -87,7 +87,7 @@ const data = function(req, res) {
       votes: 48
     },
 
-    // quotation
+    // Quotation
     quote: {
       lines: [
         "They are autographs of angels, penned",
