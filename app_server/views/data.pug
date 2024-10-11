@@ -2,8 +2,7 @@ extends layout
 
 block content
   .container
-    // Loop through all flowers
-    each flower in [flower1, flower2, flower3, flower4, flower5]
+    each flower, index in flowers
       .card
         .container-fluid
           .wrapper.row
@@ -13,7 +12,7 @@ block content
                   img(src=flower.picture)
             .details.col-md-6
               .title-wrapper
-                h3.flower-title= flower.name
+                h3.product-title= flower.name
                 button.like.btn.btn-default(type='button')
                   span.fa.fa-heart
               .rating
@@ -22,12 +21,12 @@ block content
                     span.fa.fa-star.checked
                   - for (let i = 0; i < 5 - flower.rating; i++)
                     span.fa.fa-star
-              p.flower-description= flower.description
+              p.product-description= flower.description
               .action
                 button.add-to-cart.btn.btn-default(type='button') Care guiding tips
               h4.price
                 | Level   
-                span= flower.careGuide.level
+                span= flower.careGuide.level   
               h4.price
                 | Temperature   
                 span= flower.careGuide.temperature
@@ -47,18 +46,15 @@ block content
                 strong= flower.votes
                 | PrettyPetals club members enjoyed this flower!
                 strong (#{flower.votes} votes)
-
-  // Quote Section
   .container
     .card
       .card-header
         | Quote
       .card-body
         blockquote.blockquote.mb-0
-          p 
-            each line in quote.lines
-              | #{line}
-              br
+          each line in quote.lines
+            | #{line}
+            br
           footer.blockquote-footer
             | Written by 
             cite(title=quote.author)= quote.author
