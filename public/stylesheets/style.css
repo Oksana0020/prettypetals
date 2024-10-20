@@ -122,7 +122,7 @@ a:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Custom Footer */
+/* Footer */
 footer {
   background-color: #2e7d32; 
   color: #ffffff;
@@ -132,9 +132,11 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
 footer.blockquote-footer {
   color: #ffffff;
 }
+
 #login .container #login-row #login-column #login-box {
   margin-top: 120px;
   max-width: 600px;
@@ -142,38 +144,44 @@ footer.blockquote-footer {
   border: 1px solid #9C9C9C;
   background-color: #EAEAEA;
 }
+
 #login .container #login-row #login-column #login-box #login-form {
   padding: 20px;
 }
+
 #login .container #login-row #login-column #login-box #login-form #register-link {
   margin-top: -85px;
 }
-/*Form*/
-.main{
+
+/* Form */
+.main {
   padding: 40px 0;
 }
+
 .main input,
 .main input::-webkit-input-placeholder {
-   font-size: 11px;
-   padding-top: 3px;
+  font-size: 11px;
+  padding-top: 3px;
 }
-.main-center{
+
+.main-center {
   margin-top: 30px;
   margin: 0 auto;
   max-width: 30rem;
-   padding: 10px 40px;
- background:#2e7d32;
-     color: #FFF;
-   text-shadow: none;
- -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
--moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
+  padding: 10px 40px;
+  background: #2e7d32;
+  color: #FFF;
+  text-shadow: none;
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
+  -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
+}
 
-}
 span.input-group-addon i {
-   color: #2e7d32;
-   font-size: 17px;
+  color: #2e7d32;
+  font-size: 17px;
 }
+
 /* Small Devices */
 @media (max-width: 767px) {
   .navbar-nav .nav-link {
@@ -190,9 +198,10 @@ img {
   max-width: 100%;
 }
 
+/* Picture preview */
 .preview-pic img {
   width: 100%;            
-  height: 35rem;         
+  height: auto; 
   object-fit: cover;     
 }
 
@@ -201,6 +210,7 @@ img {
   flex-direction: column;
 }
 
+/* Card Styles */
 .card {
   margin-top: 3rem;      
   background: #eee;
@@ -208,10 +218,29 @@ img {
   line-height: 1.5em;
 }
 
-@media screen and (min-width: 62em) { 
-  .wrapper {
-    display: flex;
-  }
+.quote-section {
+  margin-top: 2rem;
+}
+
+.card.mb-4 {
+  border: 1px solid #4caf50; 
+  background-color: #f9f9f9; 
+}
+
+.blockquote {
+  font-style: italic; 
+  color: #555; 
+}
+
+.blockquote-footer {
+  font-weight: bold; 
+  color: #388e3c; 
+  margin-top: 1rem; 
+}
+
+.card-body {
+  overflow: visible; 
+  max-height: none; 
 }
 
 .details {
@@ -282,8 +311,55 @@ img {
   background: #0076ad;
 }
 
+/* Heart button styling */
+.like {
+  background: #ff9f1a; 
+  border: none;
+  color: white; 
+  font-size: 1.5em; 
+  padding: 0.5em; 
+  border-radius: 5px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  margin-right: 10px; 
+}
 
+/* Responsive for tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .preview-pic img {
+    width: 90%; 
+    max-height: 30rem; 
+    margin: 0 auto; 
+  }
 
+  .card {
+    padding: 2rem; 
+    margin: 1rem; 
+  }
+}
 
+@media screen and (min-width: 62em) { 
+  .wrapper {
+    display: flex;
+  }
+}
 
+/* the heart size for mobile */
+@media (max-width: 767px) {
+  .like {
+    font-size: 1.2em; 
+    padding: 0.3em; 
+  }
 
+  .title-container {
+    display: flex;
+    flex-direction: row; 
+    align-items: flex-start; 
+  }
+
+  /* Hiding the quote section on mobile */
+  .quote-section {
+    display: none; 
+  }
+}

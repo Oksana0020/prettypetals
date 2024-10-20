@@ -2,19 +2,20 @@ extends layout
 
 block content
   .container
-    each flower, index in flowers
-      .card
+    each flower in flowers
+      .card.mb-4
         .container-fluid
           .wrapper.row
-            .preview.col-md-6
+            .preview.col-12.col-md-6
               .preview-pic.tab-content
                 #pic-1.tab-pane.active
-                  img(src=flower.picture)
-            .details.col-md-6
+                  img(src=flower.picture, class="img-fluid")
+            .details.col-12.col-md-6
               .title-wrapper
-                h3.product-title= flower.name
-                button.like.btn.btn-default(type='button')
-                  span.fa.fa-heart
+                .title-container(style='display: flex; align-items: center;')
+                  button.like.btn.btn-default(type='button')
+                    span.fa.fa-heart
+                  h3.product-title= flower.name
               .rating
                 .stars
                   - for (let i = 0; i < flower.rating; i++)
@@ -22,39 +23,41 @@ block content
                   - for (let i = 0; i < 5 - flower.rating; i++)
                     span.fa.fa-star
               p.product-description= flower.description
-              .action
-                button.add-to-cart.btn.btn-default(type='button') Care guiding tips
+              .action.mt-3
+                button.add-to-cart.btn.btn-primary(type='button') Care guiding tips
               h4.price
-                | Level   
+                | Level: 
                 span= flower.careGuide.level   
               h4.price
-                | Temperature   
+                | Temperature: 
                 span= flower.careGuide.temperature
               h4.price
-                | Light     
+                | Light:  
                 span= flower.careGuide.light
               h4.price
-                | Watering   
+                | Watering: 
                 span= flower.careGuide.water
               h4.price
-                | Fertilizing   
+                | Fertilizing: 
                 span= flower.careGuide.fertilize
               h4.price
-                | Bloom time   
+                | Bloom time: 
                 span= flower.careGuide.bloomTime
               p.vote
                 strong= flower.votes
-                | PrettyPetals club members enjoyed this flower!
-                strong (#{flower.votes} votes)
-  .container
-    .card
-      .card-header
-        | Quote
-      .card-body
-        blockquote.blockquote.mb-0
-          each line in quote.lines
-            | #{line}
-            br
-          footer.blockquote-footer
-            | Written by 
-            cite(title=quote.author)= quote.author
+                | PrettyPetals club members enjoyed this flower! (#{flower.votes} votes)
+
+    // quote section
+    .quote-section
+      .container
+        .card.mb-4
+          .card-header
+            | Quote
+          .card-body
+            blockquote.blockquote.mb-0
+              each line in quote.lines
+                | #{line}
+                br
+              footer.blockquote-footer
+                | Written by 
+                cite(title=quote.author)= quote.author

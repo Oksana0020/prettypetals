@@ -13,12 +13,12 @@ html
         // Brand name
         a.navbar-brand(href='/data') PrettyPetals
         // Toggle button for mobile view
-        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarText', aria-controls='navbarText', aria-expanded='false', aria-label='Toggle navigation')
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
           span.navbar-toggler-icon
         // Collapsible navigation links
-        #navbarText.collapse.navbar-collapse
+        #navbarNav.collapse.navbar-collapse
           ul.navbar-nav.mr-auto
-            li.nav-item.active
+            li.nav-item
               a.nav-link(href='/login') Login
             li.nav-item
               a.nav-link(href='/registration') Register
@@ -29,11 +29,11 @@ html
           | Welcome to PrettyPetals: Cultivating Joy in Every Petal
     .container
       block content
-      footer
-        .row
-          .col-12
-            small &copy; Oksana Fursa 2024
-    // Scripts for jQuery, Tether and Bootstrap
-    script(src='https://code.jquery.com/jquery-3.1.1.slim.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
-    script(src='/javascripts/bootstrap.min.js')
+    footer
+      .row
+        .col-12.text-center
+          small &copy; Oksana Fursa 2024
+    // Scripts for jQuery, Popper.js, and Bootstrap
+    script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js')
