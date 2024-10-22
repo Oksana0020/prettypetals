@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const dbURI =
-    "mongodb+srv://user1:mtu12345@cluster0.ykc32.mongodb.net/PrettyPetals?retryWrites=true&w=majority&appName=Cluster0";
+const dbURI = "mongodb+srv://user1:mtu12345@cluster0.xxa6u.mongodb.net/PrettyPetals?retryWrites=true&w=majority&appName=Cluster0";
 
 try {
     mongoose.connect(dbURI) 
