@@ -1,3 +1,4 @@
+// app_api/models/db.js
 const mongoose = require('mongoose');
 const dbURI = "mongodb+srv://user1:mtu12345@cluster0.xxa6u.mongodb.net/PrettyPetals?retryWrites=true&w=majority&appName=Cluster0";
 

@@ -1,14 +1,20 @@
-const createError = require('http-errors');
 const express = require('express');
+const mongoose = require('mongoose');
+const createError = require('http-errors');
 const favicon = require('serve-favicon');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const apiRoutes = require('./app_api/routes/index');
-//const indexRouter = require('./app_server/routes/index'); 
+const indexRouter = require('./app_server/routes/index'); 
 // const usersRouter = require('./app_server/routes/users'); 
 require('./app_api/models/db');
+
+// Route imports
+const apiRoutes = require('./app_api/routes/index');
+//const flowersRoutes = require('./app_api/routes/flowers'); 
+//const authRoutes = require('./app_api/routes/auth');
+
 const app = express();
 
 // view engine setup
@@ -23,8 +29,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Use the index routes for '/' path
-//app.use('/', indexRouter);
+app.use('/', indexRouter);
 app.use('/api', apiRoutes);
+//app.use('/api', flowersRoutes); 
+//app.use('/api', authRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

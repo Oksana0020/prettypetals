@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ctrlFlowers = require('../controllers/flowers');
+const authRoutes = require('./auth'); 
 
 // Flowers routes
 router
@@ -13,5 +14,8 @@ router
   .get(ctrlFlowers.flowersReadOne)  
   .put(ctrlFlowers.flowersUpdateOne)  
   .delete(ctrlFlowers.flowersDeleteOne);  
+
+// Authentication routes
+router.use('/auth', authRoutes); // Prefix auth routes with /auth
 
 module.exports = router;
