@@ -28,6 +28,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// redirecting http://localhost:3000/ to login right away so it won't give error
+app.get('/', (req, res) => {
+  res.redirect('/login');
+});
+
 // Use the index routes for '/' path
 app.use('/', indexRouter);
 app.use('/api', apiRoutes);

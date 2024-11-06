@@ -20,16 +20,41 @@ const flowersCreate = function(req, res) {
     description: req.body.description,
     careGuide: req.body.careGuide,
     votes: req.body.votes
-  }).then(flower => {
+  })
+  .then(flower => {
     res.status(201).json(flower);
-  }).catch(err => {
-    res.status(400).json(err);
+  })
+  .catch(err => {
+    if (err.name === 'ValidationError') {
+      const errorResponse = {
+        message: 'Validation failed',
+        name: 'ValidationError',
+        errors: {}
+      };
+
+      // error details
+      for (const key in err.errors) {
+        if (err.errors.hasOwnProperty(key)) {
+          errorResponse.errors[key] = {
+            message: err.errors[key].message,
+            name: 'ValidatorError',
+            path: key,
+            type: err.errors[key].kind,
+            value: err.errors[key].value
+          };
+        }
+      }
+
+      return res.status(400).json(errorResponse);
+    } else {
+      res.status(500).json(err);
+    }
   });
 };
 
+
 // Read one flower by name
 const flowersReadOne = function(req, res) {
-  // checking if flowerName is provided
   if (req.params && req.params.flowerName) {
     Flower.findOne({ name: req.params.flowerName }).then((flower) => {
       if (!flower) {
@@ -108,5 +133,5 @@ module.exports = {
   flowersCreate,
   flowersReadOne,
   flowersUpdateOne,
-  flowersDeleteOne
+  flowersDeleteOne,
 };

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ctrlFlowers = require('../controllers/flowers');
+const ctrlFlowers = require('../controllers/flowers'); 
 const authRoutes = require('./auth'); 
 
 // Flowers routes
