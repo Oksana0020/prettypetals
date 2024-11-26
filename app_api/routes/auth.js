@@ -1,7 +1,7 @@
 // app_api/routes/auth.js
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/auth'); // Make sure this points to your controller
+const authController = require('../controllers/auth'); 
 
 // Authentication routes
 router.post('/register', authController.register); // POST for registration
