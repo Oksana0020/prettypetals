@@ -31,13 +31,17 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              
               {
                 "glob": "**/*",
-                "input": "src/assets"  
+                "input": "src/assets",  
+                "output": "assets"  
               }
             ],
             "styles": [
-              "src/assets/stylesheets/style.css"
+              "src/assets/stylesheets/style.css",
+              "src/assets/stylesheets/bootstrap.min.css",
+              "src/assets/stylesheets/font-awesome.min.css"
             ],
             "scripts": []
           },

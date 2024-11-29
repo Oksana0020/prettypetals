@@ -1,3 +1,4 @@
+
 extends layout
 
 block content
@@ -61,3 +62,9 @@ block content
               footer.blockquote-footer
                 | Written by 
                 cite(title=quote.author)= quote.author
+
+block scripts
+  script(src="/build/polyfills-FFHMD2TL.js", type="module")
+  script(src="/build/main-LLJPTNXC.js", type="module")
+  script(src="/build/styles-XXGYUP4D.css", type="module")
+
