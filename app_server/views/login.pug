@@ -4,19 +4,27 @@ block content
   .container
     .main
       .main-center
-        h5= info.title  
-        h1= info.pageHeader.title
-        small &nbsp;#{info.pageHeader.strapline}
-        if info.error
-          p.alert.alert-danger= info.error 
+        h5= info.title
+        if info.pageHeader
+          h1= info.pageHeader.title
+          small &nbsp;#{info.pageHeader.strapline}
+        else
+          h1 Default Title
+          small &nbsp; Default Strapline
 
+        // Display error
+        if info.error
+          .alert.alert-danger
+            p= info.error  
+
+        // Login form
         form(method='post', action='/login')
           .form-group
-            label(for='username') Username
+            label(for='email') Email
             .input-group
               span.input-group-addon
                 i.fa.fa-users.fa(aria-hidden='true')
-              input#username.form-control(type='text', name='username', placeholder='Enter your Username')
+              input#email.form-control(type='email', name='email', placeholder='Enter your Email')
           .form-group
             label(for='password') Password
             .input-group

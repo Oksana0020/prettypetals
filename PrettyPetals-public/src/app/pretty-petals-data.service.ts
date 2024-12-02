@@ -6,7 +6,7 @@ import { Flower } from './home-list/home-list.component';
   providedIn: 'root'
 })
 export class PrettyPetalsDataService {
-  private apiBaseUrl = 'http://localhost:3000/api/'; 
+  private apiBaseUrl = 'http://localhost:8000/api/'; 
 
   constructor(private http: HttpClient) {}
 

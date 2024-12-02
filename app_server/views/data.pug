@@ -2,69 +2,70 @@
 extends layout
 
 block content
-  .container
-    each flower in flowers
-      .card.mb-4
-        .container-fluid
-          .wrapper.row
-            .preview.col-12.col-md-6
-              .preview-pic.tab-content
-                #pic-1.tab-pane.active
-                  img(src=flower.picture, class="img-fluid")
-            .details.col-12.col-md-6
-              .title-wrapper
-                .title-container(style='display: flex; align-items: center;')
-                  button.like.btn.btn-default(type='button')
-                    span.fa.fa-heart
-                  h3.product-title= flower.name
-              .rating
-                .stars
-                  - for (let i = 0; i < flower.rating; i++)
-                    span.fa.fa-star.checked
-                  - for (let i = 0; i < 5 - flower.rating; i++)
-                    span.fa.fa-star
-              p.product-description= flower.description
-              .action.mt-3
-                button.add-to-cart.btn.btn-primary(type='button') Care guiding tips
-              h4.price
-                | Level: 
-                span= flower.careGuide.level   
-              h4.price
-                | Temperature: 
-                span= flower.careGuide.temperature
-              h4.price
-                | Light:  
-                span= flower.careGuide.light
-              h4.price
-                | Watering: 
-                span= flower.careGuide.water
-              h4.price
-                | Fertilizing: 
-                span= flower.careGuide.fertilize
-              h4.price
-                | Bloom time: 
-                span= flower.careGuide.bloomTime
-              p.vote
-                strong= flower.votes
-                | PrettyPetals club members enjoyed this flower! (#{flower.votes} votes)
+  app-home-list
+  //- .container
+  //-   each flower in flowers
+  //-     .card.mb-4
+  //-       .container-fluid
+  //-         .wrapper.row
+  //-           .preview.col-12.col-md-6
+  //-             .preview-pic.tab-content
+  //-               #pic-1.tab-pane.active
+  //-                 img(src=flower.picture, class="img-fluid")
+  //-           .details.col-12.col-md-6
+  //-             .title-wrapper
+  //-               .title-container(style='display: flex; align-items: center;')
+  //-                 button.like.btn.btn-default(type='button')
+  //-                   span.fa.fa-heart
+  //-                 h3.product-title= flower.name
+  //-             .rating
+  //-               .stars
+  //-                 - for (let i = 0; i < flower.rating; i++)
+  //-                   span.fa.fa-star.checked
+  //-                 - for (let i = 0; i < 5 - flower.rating; i++)
+  //-                   span.fa.fa-star
+  //-             p.product-description= flower.description
+  //-             .action.mt-3
+  //-               button.add-to-cart.btn.btn-primary(type='button') Care guiding tips
+  //-             h4.price
+  //-               | Level: 
+  //-               span= flower.careGuide.level   
+  //-             h4.price
+  //-               | Temperature: 
+  //-               span= flower.careGuide.temperature
+  //-             h4.price
+  //-               | Light:  
+  //-               span= flower.careGuide.light
+  //-             h4.price
+  //-               | Watering: 
+  //-               span= flower.careGuide.water
+  //-             h4.price
+  //-               | Fertilizing: 
+  //-               span= flower.careGuide.fertilize
+  //-             h4.price
+  //-               | Bloom time: 
+  //-               span= flower.careGuide.bloomTime
+  //-             p.vote
+  //-               strong= flower.votes
+  //-               | PrettyPetals club members enjoyed this flower! (#{flower.votes} votes)
 
-    // quote section
-    .quote-section
-      .container
-        .card.mb-4
-          .card-header
-            | Quote
-          .card-body
-            blockquote.blockquote.mb-0
-              each line in quote.lines
-                | #{line}
-                br
-              footer.blockquote-footer
-                | Written by 
-                cite(title=quote.author)= quote.author
+  //-   // quote section
+  //-   .quote-section
+  //-     .container
+  //-       .card.mb-4
+  //-         .card-header
+  //-           | Quote
+  //-         .card-body
+  //-           blockquote.blockquote.mb-0
+  //-             each line in quote.lines
+  //-               | #{line}
+  //-               br
+  //-             footer.blockquote-footer
+  //-               | Written by 
+  //-               cite(title=quote.author)= quote.author
 
 block scripts
-  script(src="/build/polyfills-FFHMD2TL.js", type="module")
-  script(src="/build/main-LLJPTNXC.js", type="module")
-  script(src="/build/styles-XXGYUP4D.css", type="module")
+  script(src="/polyfills-FFHMD2TL.js", type="module")
+  script(src="/main-CP4IVL2X.js", type="module")
+  script(src="/styles-GHF6ADC4.css", type="module")
 

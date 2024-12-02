@@ -4,28 +4,47 @@ block content
   .container
     .main
       .main-center
-        h5= info.title  
+        h5= info.title
+
+        if info.error
+          p.alert.alert-danger= info.error
 
         form(method='post', action='/registration')
           .form-group
             label(for='firstName') First Name
-            input#firstName.form-control(type='text', name='firstName', placeholder=info.form.firstName.placeholder)
+            input#firstName.form-control(type='text', name='firstName', placeholder=info.form.firstName.placeholder, value=info.form.firstName.value || '')
+            if info.error && !info.form.firstName.value
+              p.text-danger First name is required.
           .form-group
             label(for='lastName') Last Name
-            input#lastName.form-control(type='text', name='lastName', placeholder=info.form.lastName.placeholder)
+            input#lastName.form-control(type='text', name='lastName', placeholder=info.form.lastName.placeholder, value=info.form.lastName.value || '')
+            if info.error && !info.form.lastName.value
+              p.text-danger Last name is required.
           .form-group
             label(for='username') Username
-            input#username.form-control(type='text', name='username', placeholder=info.form.username.placeholder)
+            input#username.form-control(type='text', name='username', placeholder=info.form.username.placeholder, value=info.form.username.value || '')
+            if info.error && !info.form.username.value
+              p.text-danger Username is required.
           .form-group
             label(for='email') E-mail
-            input#email.form-control(type='email', name='email', placeholder=info.form.email.placeholder)
+            input#email.form-control(type='email', name='email', placeholder=info.form.email.placeholder, value=info.form.email.value || '')
+            if info.error && !info.form.email.value
+              p.text-danger E-mail is required.
+            else if info.error && !/\S+@\S+\.\S+/.test(info.form.email.value)
+              p.text-danger Invalid email format.
           .form-group
             label(for='password') Password
-            input#password.form-control(type='password', name='password', placeholder=info.form.password.placeholder)
+            input#password.form-control(type='password', name='password', placeholder=info.form.password.placeholder, value=info.form.password.value || '')
+            if info.error && !info.form.password.value
+              p.text-danger Password is required.
           .form-group
             label(for='confirm') Confirm Password
-            input#confirm.form-control(type='password', name='confirm', placeholder=info.form.confirm.placeholder)
+            input#confirm.form-control(type='password', name='confirm', placeholder=info.form.confirm.placeholder, value=info.form.confirm.value || '')
+            if info.error && info.form.password.value !== info.form.confirm.value
+              p.text-danger Passwords do not match.
           .form-group
             label(for='favouriteFlower') Favourite Flower
-            input#favouriteFlower.form-control(type='text', name='favouriteFlower', placeholder=info.form.favouriteFlower.placeholder)
+            input#favouriteFlower.form-control(type='text', name='favouriteFlower', placeholder=info.form.favouriteFlower.placeholder, value=info.form.favouriteFlower.value || '')
+            if info.error && !info.form.favouriteFlower.value
+              p.text-danger Favourite flower is required.
           button(type='submit') Register
