@@ -1,11 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const createError = require('http-errors');
-const favicon = require('serve-favicon');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
 const http = require('http');
@@ -13,10 +11,9 @@ const https = require('https');
 
 const app = express();
 const indexRouter = require('./app_server/routes/index');
-const apiRoutes = require('./app_api/routes/index'); 
-const authRoutes = require('./app_api/routes/auth'); 
+const apiRoutes = require('./app_api/routes/index');
 
-require('./app_api/models/db'); 
+require('./app_api/models/db');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -44,9 +41,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_public/')));
 
-// redirecting to login
+// Redirect root to login
 app.get('/', (req, res) => {
-  res.redirect('/login'); 
+  res.redirect('/login');
 });
 
 app.use('/', indexRouter); 

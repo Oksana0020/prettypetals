@@ -5,7 +5,7 @@ exports.processRegistration = function (req, res) {
   try {
     const { firstName, lastName, username, email, password, confirmPassword, favouriteFlower } = req.body;
 
-    console.log('Registration data:', req.body);
+    console.log('Received registration data:', req.body);
 
     if (!firstName || !lastName || !username || !email || !password || !confirmPassword || !favouriteFlower) {
       console.error('Registration failed: Missing required fields');
@@ -37,6 +37,7 @@ exports.processRegistration = function (req, res) {
       });
     }
 
+    console.log('Checking if user already exists...');
     User.findOne({ $or: [{ email }, { username }] })
       .then((existingUser) => {
         if (existingUser) {
@@ -54,6 +55,7 @@ exports.processRegistration = function (req, res) {
           });
         }
 
+        console.log('Hashing password...');
         bcrypt.hash(password, 10, (err, hashedPassword) => {
           if (err) {
             console.error('Error hashing password:', err);
@@ -81,6 +83,7 @@ exports.processRegistration = function (req, res) {
             favouriteFlower,
           });
 
+          console.log('Saving new user...');
           newUser.save()
             .then(() => {
               console.log('Registration successful for user:', username);
@@ -147,7 +150,9 @@ exports.processLogin = async function (req, res) {
       });
     }
 
-    const user = await User.findOne({ email });
+    console.log('Searching for user with email:', email);
+    const user = await User.findOne({ email: new RegExp(`^${email}$`, 'i') });
+
     if (!user) {
       console.error('Login failed: Invalid email');
       return res.status(400).render('login', {
@@ -159,7 +164,11 @@ exports.processLogin = async function (req, res) {
 
     console.log('User found:', user);
 
+    console.log('Comparing provided password with stored password...');
     const isMatch = await bcrypt.compare(password, user.password);
+
+    console.log('Password match result:', isMatch);
+
     if (!isMatch) {
       console.error('Login failed: Invalid password');
       return res.status(400).render('login', {
