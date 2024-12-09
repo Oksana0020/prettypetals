@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://prettypetals.onrender.com/api' 
+  apiBaseUrl: 'https://prettypetals.onrender.com/api/'
 };
 
