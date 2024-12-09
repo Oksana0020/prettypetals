@@ -16,7 +16,12 @@ router.post('/registration', registrationController.processRegistration);
 // API Endpoint for Flowers
 router.get('/flowers', ctrlFlowers.flowersList);
 
-//Angular application for all other undefined routes
+// Serve Angular application for `/data` and other routes
+router.get('/data', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../dist/pretty-petals-public/browser/index.html'));
+});
+
+// Handle all other routes with Angular
 router.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../dist/pretty-petals-public/browser/index.html'));
 });
