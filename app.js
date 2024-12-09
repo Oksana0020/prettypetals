@@ -27,7 +27,7 @@ try {
   console.warn('SSL certificates are missing. HTTPS will not be available.');
 }
 
-// Fix for MIME type issues with JavaScript files
+// Middleware to ensure proper MIME type for JavaScript files
 app.use((req, res, next) => {
   if (req.url.endsWith('.js')) {
     res.setHeader('Content-Type', 'application/javascript');
@@ -84,6 +84,8 @@ app.use('/registration', indexRouter);
 
 // Serve Angular app for `/` and `/data`
 if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'dist/pretty-petals-public/browser')));
+  
   app.get(['/data', '/'], (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/pretty-petals-public/browser/index.html'));
   });
