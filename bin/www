@@ -1,75 +1,57 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
+const app = require('../app');
+const debug = require('debug')('myproject:server');
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
 
-var app = require('../app');
-var debug = require('debug')('myproject:server');
-var http = require('http');
-
-/**
- * Get port from environment and store in Express.
- */
-
-var port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
+// SSL setup
+let credentials = null;
+try {
+  const privateKey = fs.readFileSync('./sslcert/key.pem', 'utf8');
+  const certificate = fs.readFileSync('./sslcert/cert.pem', 'utf8');
+  credentials = { key: privateKey, cert: certificate };
+} catch (err) {
+  console.warn('SSL certificates are missing. HTTPS will not be available.');
+}
 
-var server = http.createServer(app);
+// Create HTTP server
+const httpServer = http.createServer(app);
+httpServer.listen(port);
+httpServer.on('error', onError);
+httpServer.on('listening', onListening);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+// Create HTTPS server if SSL is configured
+if (credentials) {
+  const httpsPort = process.env.HTTPS_PORT || 443;
+  const httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(httpsPort, () => {
+    console.log(`HTTPS server running on port ${httpsPort}`);
+  });
+}
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
+// Utility functions
 function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
+  const port = parseInt(val, 10);
+  if (isNaN(port)) return val; // named pipe
+  if (port >= 0) return port; // port number
   return false;
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
-
 function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
-
-  // handle specific listen errors with friendly messages
+  if (error.syscall !== 'listen') throw error;
+  const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      console.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      console.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:
@@ -77,14 +59,9 @@ function onError(error) {
   }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
-
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  const addr = httpServer.address();
+  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
+  debug(`Listening on ${bind}`);
+  console.log(`HTTP server running on port ${port}`);
 }

@@ -94,13 +94,13 @@ const httpPort = process.env.PORT || 8000;
 const httpsPort = process.env.HTTPS_PORT || 443;
 
 // Create HTTP and HTTPS servers
-const httpServer = http.createServer(app);
-httpServer.listen(httpPort, () => console.log(`HTTP server running on port ${httpPort}`));
+//const httpServer = http.createServer(app);
+//httpServer.listen(httpPort, () => console.log(`HTTP server running on port ${httpPort}`));
 
-if (credentials) {
-  const httpsServer = https.createServer(credentials, app);
-  httpsServer.listen(httpsPort, () => console.log(`HTTPS server running on port ${httpsPort}`));
-}
+//if (credentials) {
+  //const httpsServer = https.createServer(credentials, app);
+  //httpsServer.listen(httpsPort, () => console.log(`HTTPS server running on port ${httpsPort}`));
+//}
 
 
 module.exports = app;
