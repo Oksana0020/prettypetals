@@ -85,13 +85,14 @@ app.use('/registration', indexRouter);
 // Serve Angular app for `/` and `/data`
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'dist/pretty-petals-public/browser')));
-  
+
+  // Ensure Angular routes are served only for `/data` and `/`
   app.get(['/data', '/'], (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/pretty-petals-public/browser/index.html'));
   });
 }
 
-// Handle 404 errors
+// Handle 404 errors for other routes
 app.use((req, res, next) => next(createError(404)));
 
 // Error handling middleware
