@@ -15,5 +15,5 @@ try {
 
 require('./locations'); 
 
-//{ useNewUrlParser: true, useUnifiedTopology: true }).
+//{ useNewUrlParser: true, useUnifiedTopology: true })
 
