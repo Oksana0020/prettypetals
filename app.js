@@ -26,6 +26,7 @@ try {
   console.warn('SSL certificates are missing. HTTPS will not be available.');
 }
 
+// Middleware to ensure proper MIME type for JavaScript files
 app.use((req, res, next) => {
   if (req.url.endsWith('.js')) {
     res.setHeader('Content-Type', 'application/javascript');
@@ -69,10 +70,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', indexRouter);
+// API routes
 app.use('/api', apiRoutes);
 
+// Serve Angular app
 if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'dist/pretty-petals-public/browser')));
+  
   app.get('*', (req, res) => {
     const requestedFile = path.join(__dirname, 'dist/pretty-petals-public/browser', req.path);
     if (fs.existsSync(requestedFile)) {
@@ -83,7 +87,10 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+// Handle 404 errors
 app.use((req, res, next) => next(createError(404)));
+
+// Error handling middleware
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
