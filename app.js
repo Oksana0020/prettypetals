@@ -16,6 +16,7 @@ const app = express();
 const indexRouter = require('./app_server/routes/index');
 const apiRoutes = require('./app_api/routes/index');
 
+// Database connection and Passport setup
 require('./app_api/models/db');
 require('./passportConfig');
 
@@ -32,7 +33,8 @@ try {
 // Middleware configurations
 const allowedOrigins = process.env.NODE_ENV === 'production'
   ? ['https://prettypetals.onrender.com']
-  : ['http://localhost:4200', 'http://localhost:8000'];
+  : ['http://localhost:4200', 'http://localhost:10000'];
+
 app.use(cors({
   origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -42,13 +44,13 @@ app.use(cors({
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'pug');
 
-// Logger and body parsers
+// Logger and parsers
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'app_public/')));
+app.use(express.static(path.join(__dirname, 'app_public')));
 
 // Session and Passport configurations
 app.use(session({
@@ -88,8 +90,8 @@ app.use((err, req, res, next) => {
 });
 
 // Create HTTP and HTTPS servers
-const httpPort = process.env.PORT || 8000;
-const httpsPort = 443;
+const httpPort = process.env.PORT || 10000;
+const httpsPort = process.env.HTTPS_PORT || 443;
 
 const httpServer = http.createServer(app);
 httpServer.listen(httpPort, () => console.log(`HTTP server running on port ${httpPort}`));
