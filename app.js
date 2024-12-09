@@ -30,6 +30,14 @@ try {
   console.warn('SSL certificates are missing. HTTPS will not be available.');
 }
 
+app.use((req, res, next) => {
+  if (req.url.endsWith('.js')) {
+    res.setHeader('Content-Type', 'application/javascript');
+  }
+  next();
+});
+
+
 // Middleware configurations
 const allowedOrigins = process.env.NODE_ENV === 'production'
   ? ['https://prettypetals.onrender.com']
