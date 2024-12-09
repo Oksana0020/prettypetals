@@ -75,13 +75,13 @@ app.use('/api', apiRoutes);
 
 // Serve Angular app in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'dist/pretty-petals-public')));
+  app.use(express.static(path.join(__dirname, 'dist/pretty-petals-public/browser')));
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/pretty-petals-public/index.html'));
+    res.sendFile(path.join(__dirname, 'dist/pretty-petals-public/browser/index.html'));
   });
 }
 
-// Error handling
+
 app.use((req, res, next) => next(createError(404)));
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
@@ -94,6 +94,7 @@ const httpPort = process.env.PORT || 8000;
 const httpsPort = process.env.HTTPS_PORT || 443;
 
 // Create HTTP and HTTPS servers
+
 //const httpServer = http.createServer(app);
 //httpServer.listen(httpPort, () => console.log(`HTTP server running on port ${httpPort}`));
 
