@@ -56,7 +56,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_public')));
-app.use(express.static(path.join(__dirname, 'dist/pretty-petals-public/browser')));
 
 // Session setup
 app.use(session({
@@ -79,14 +78,12 @@ app.use((req, res, next) => {
 app.use('/api', apiRoutes);
 
 // Server-side routes for login and registration
-app.use('/login', indexRouter);
-app.use('/registration', indexRouter);
+app.use('/', indexRouter);
 
-// Serve Angular app for `/` and `/data`
+// Serve Angular app only for `/` and `/data`
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'dist/pretty-petals-public/browser')));
 
-  // Ensure Angular routes are served only for `/data` and `/`
   app.get(['/data', '/'], (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/pretty-petals-public/browser/index.html'));
   });
