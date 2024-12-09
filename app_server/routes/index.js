@@ -1,19 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const ctrlRegistrations = require('../controllers/registrations');
+const authController = require('../controllers/auth');
+const registrationController = require('../controllers/registrations');
 const ctrlData = require('../controllers/data');
 const ctrlFlowers = require('../../app_api/controllers/flowers');
-const authRoutes = require('../../app_api/routes/auth'); 
 
-// Registrations pages
-router.get('/login', ctrlRegistrations.login);
-router.post('/login', ctrlRegistrations.processLogin); 
-router.get('/registration', ctrlRegistrations.register);
-router.post('/registration', ctrlRegistrations.processRegistration);
+// Login Pages (Auth Controller)
+router.get('/login', authController.login);
+router.post('/login', authController.processLogin);
 
-// Data pages
+// Registration Pages (Registration Controller)
+router.get('/registration', registrationController.register);
+router.post('/registration', registrationController.processRegistration);
+
+// Data Pages
 router.get('/data', ctrlData.getFlowersData);
 router.get('/flowers', ctrlFlowers.flowersList);
-router.use('/auth', authRoutes);
 
 module.exports = router;

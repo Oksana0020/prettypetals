@@ -69,6 +69,57 @@ button:hover, .btn:hover {
   cursor: pointer; 
 }
 
+/* Form Group*/
+
+.input-group {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.input-group-addon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  background-color: #e8f5e9;
+  border: 1px solid #4caf50;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.input-group-addon i {
+  color: #2e7d32;
+  font-size: 1.2rem;
+}
+
+.form-control {
+  flex: 1;
+  border: 1px solid #4caf50;
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  padding: 10px;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  border-color: #66bb6a;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.input-group .form-control,
+.input-group .input-group-addon {
+  height: 40px;
+  line-height: normal;
+}
+
+
+
 /* Footer */
 footer {
   background-color: #388e3c; 

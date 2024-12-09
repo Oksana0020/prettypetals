@@ -4,31 +4,27 @@ block content
   .container
     .main
       .main-center
-        h5= info.title
-        if info.pageHeader
-          h1= info.pageHeader.title
-          small &nbsp;#{info.pageHeader.strapline}
-        else
-          h1 Default Title
-          small &nbsp; Default Strapline
+        h5= title || 'Login to Your Account'
+        if pageHeader
+          h1= pageHeader.title || 'Welcome Back!'
+          small #{pageHeader.strapline || 'Please log in to continue'}
 
-        // Display error
-        if info.error
+        if error
           .alert.alert-danger
-            p= info.error  
+            p= error
 
         // Login form
         form(method='post', action='/login')
           .form-group
-            label(for='email') Email
+            label(for='username') Username
             .input-group
               span.input-group-addon
-                i.fa.fa-users.fa(aria-hidden='true')
-              input#email.form-control(type='email', name='email', placeholder='Enter your Email' required)
+                i.fa.fa-user(aria-hidden='true')
+              input#username.form-control(type='text', name='username', placeholder='Enter your username' required)
           .form-group
             label(for='password') Password
             .input-group
               span.input-group-addon
-                i.fa.fa-lock.fa-lg(aria-hidden='true')
-              input#password.form-control(type='password', name='password', placeholder='Enter your Password' required)
-          button(type='submit') Log In
+                i.fa.fa-lock(aria-hidden='true')
+              input#password.form-control(type='password', name='password', placeholder='Enter your password' required)
+          button.btn.btn-primary(type='submit') Log In

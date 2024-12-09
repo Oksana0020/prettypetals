@@ -1,8 +1,7 @@
-const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
-const validateRegistration = ({ firstName, lastName, username, email, password, confirm, favouriteFlower }) => {
-  if (!firstName || !lastName || !username || !email || !password || !confirm || !favouriteFlower) {
+const validateRegistration = ({ firstName, lastName, username, email, password, confirmPassword, favouriteFlower }) => {
+  if (!firstName || !lastName || !username || !email || !password || !confirmPassword || !favouriteFlower) {
     return 'All fields are required.';
   }
 
@@ -10,7 +9,7 @@ const validateRegistration = ({ firstName, lastName, username, email, password, 
     return 'Invalid email format.';
   }
 
-  if (password !== confirm) {
+  if (password !== confirmPassword) {
     return 'Passwords do not match.';
   }
 
@@ -18,140 +17,77 @@ const validateRegistration = ({ firstName, lastName, username, email, password, 
     return 'Password must be at least 6 characters long.';
   }
 
-  // Validate password  one lowercase, one uppercase and one digit
   if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/.test(password)) {
     return 'Password must contain at least one uppercase letter, one lowercase letter, and one number.';
   }
 
-  return null; 
+  return null;
 };
 
-const register = (req, res) => {
+exports.register = (req, res) => {
   const info = {
     title: 'Registration',
     form: {
-      firstName: { placeholder: 'Enter your First Name' },
-      lastName: { placeholder: 'Enter your Last Name' },
-      username: { placeholder: 'Enter your Username' },
-      email: { placeholder: 'Enter your E-mail' },
-      password: { placeholder: 'Enter your Password' },
-      confirm: { placeholder: 'Repeat your Password' },
-      favouriteFlower: { placeholder: 'Enter your Favourite flower' },
+      firstName: { placeholder: 'Enter your First Name', value: '' },
+      lastName: { placeholder: 'Enter your Last Name', value: '' },
+      username: { placeholder: 'Enter your Username', value: '' },
+      email: { placeholder: 'Enter your E-mail', value: '' },
+      password: { placeholder: 'Enter your Password', value: '' },
+      confirmPassword: { placeholder: 'Repeat your Password', value: '' },
+      favouriteFlower: { placeholder: 'Enter your Favourite Flower', value: '' },
     },
   };
 
   res.render('registration', { info });
 };
 
-const processRegistration = (req, res) => {
-  const { firstName, lastName, username, email, password, confirm, favouriteFlower } = req.body;
+exports.processRegistration = async (req, res) => {
+  const { firstName, lastName, username, email, password, confirmPassword, favouriteFlower } = req.body;
 
-  const error = validateRegistration(req.body);
+  const error = validateRegistration({ firstName, lastName, username, email, password, confirmPassword, favouriteFlower });
   if (error) {
     return res.status(400).render('registration', {
       info: {
         error,
-        form: { firstName, lastName, username, email, favouriteFlower, password, confirm },
+        form: {
+          firstName: { placeholder: 'Enter your First Name', value: firstName },
+          lastName: { placeholder: 'Enter your Last Name', value: lastName },
+          username: { placeholder: 'Enter your Username', value: username },
+          email: { placeholder: 'Enter your E-mail', value: email },
+          favouriteFlower: { placeholder: 'Enter your Favourite Flower', value: favouriteFlower },
+          password: { placeholder: 'Enter your Password', value: '' }, 
+          confirmPassword: { placeholder: 'Repeat your Password', value: '' }, 
+        },
       },
     });
   }
 
-  // Hash password before saving
-  bcrypt.hash(password, 10, (err, hashedPassword) => {
-    if (err) {
-      console.error('Error hashing password:', err);
-      return res.status(500).render('registration', {
-        info: { error: 'Internal server error. Please try again later.' },
-      });
-    }
-
-    const newUser = new User({
+  try {
+    const user = new User({
       firstName,
       lastName,
       username,
       email,
-      password: hashedPassword,
       favouriteFlower,
     });
 
-    newUser
-      .save()
-      .then(() => {
-        res.redirect('/login');
-      })
-      .catch((err) => {
-        console.error('Error saving user:', err);
-        const errorMessage =
-          err.code === 11000
-            ? 'A user with this email or username already exists.'
-            : 'An unexpected error occurred. Please try again later.';
-        res.status(500).render('registration', {
-          info: {
-            error: errorMessage,
-            form: { firstName, lastName, username, email, favouriteFlower, password, confirm },
-          },
-        });
-      });
-  });
-};
-
-const login = (req, res) => {
-  const info = {
-    title: 'Login',
-    pageHeader: {
-      title: 'Welcome Back',
-      strapline: 'Please log in to PrettyPetals portal',
-    },
-    error: null,
-  };
-
-  if (!info.pageHeader) {
-    info.pageHeader = {
-      title: 'Default Title',
-      strapline: 'Default Strapline',
-    };
-  }
-
-  res.render('login', { info });
-};
-
-
-const processLogin = async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).render('login', {
-      info: { error: 'Email and password are required.' },
-    });
-  }
-
-  try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).render('login', {
-        info: { error: 'Invalid email or password.' },
-      });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).render('login', {
-        info: { error: 'Invalid email or password.' },
-      });
-    }
-
-    res.redirect('/data'); 
+    await User.register(user, password); 
+    res.redirect('/login');
   } catch (err) {
-    console.error('Error during login:', err);
-    res.status(500).render('login', {
-      info: { error: 'An unexpected error occurred. Please try again later.' },
+    console.error('Registration Error:', err.message);
+    res.status(500).render('registration', {
+      info: {
+        error: err.code === 11000 ? 'A user with this email or username already exists.' : 'An unexpected error occurred. Please try again later.',
+        form: {
+          firstName: { placeholder: 'Enter your First Name', value: firstName },
+          lastName: { placeholder: 'Enter your Last Name', value: lastName },
+          username: { placeholder: 'Enter your Username', value: username },
+          email: { placeholder: 'Enter your E-mail', value: email },
+          favouriteFlower: { placeholder: 'Enter your Favourite Flower', value: favouriteFlower },
+          password: { placeholder: 'Enter your Password', value: '' }, 
+          confirmPassword: { placeholder: 'Repeat your Password', value: '' }, 
+        },
+      },
     });
   }
-};
-
-module.exports = {
-  register,
-  login,
-  processRegistration,
-  processLogin,
 };
