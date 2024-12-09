@@ -17,6 +17,7 @@ const apiRoutes = require('./app_api/routes/index');
 require('./app_api/models/db');
 require('./passportConfig');
 
+// SSL setup
 let credentials = null;
 try {
   const privateKey = fs.readFileSync('./sslcert/key.pem', 'utf8');
@@ -26,7 +27,7 @@ try {
   console.warn('SSL certificates are missing. HTTPS will not be available.');
 }
 
-// Middleware to ensure proper MIME type for JavaScript files
+// Fix for MIME type issues with JavaScript files
 app.use((req, res, next) => {
   if (req.url.endsWith('.js')) {
     res.setHeader('Content-Type', 'application/javascript');
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// CORS settings
 const allowedOrigins = process.env.NODE_ENV === 'production'
   ? ['https://prettypetals.onrender.com']
   : ['http://localhost:4200', 'http://localhost:8000'];
@@ -47,6 +49,7 @@ app.use(cors({
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'pug');
 
+// Middleware setup
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -55,6 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_public')));
 app.use(express.static(path.join(__dirname, 'dist/pretty-petals-public/browser')));
 
+// Session setup
 app.use(session({
   secret: '1b6dd142a9d3acad36d8398214a7937b85bf7b8cf1625235fead50be51c3dc41',
   resave: false,
@@ -64,6 +68,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+// Flash messages middleware
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
@@ -73,17 +78,14 @@ app.use((req, res, next) => {
 // API routes
 app.use('/api', apiRoutes);
 
-// Serve Angular app
+// Server-side routes for login and registration
+app.use('/login', indexRouter);
+app.use('/registration', indexRouter);
+
+// Serve Angular app for `/` and `/data`
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'dist/pretty-petals-public/browser')));
-  
-  app.get('*', (req, res) => {
-    const requestedFile = path.join(__dirname, 'dist/pretty-petals-public/browser', req.path);
-    if (fs.existsSync(requestedFile)) {
-      res.sendFile(requestedFile);
-    } else {
-      res.sendFile(path.join(__dirname, 'dist/pretty-petals-public/browser/index.html'));
-    }
+  app.get(['/data', '/'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/pretty-petals-public/browser/index.html'));
   });
 }
 
