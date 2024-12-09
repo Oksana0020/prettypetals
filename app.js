@@ -71,11 +71,13 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/api', apiRoutes);
 
-// Serve Angular app (fallback for unmatched routes)
-app.use(express.static(path.join(__dirname, 'dist/pretty-petals-public')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/pretty-petals-public/index.html'));
-});
+// Serve Angular app in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'dist/pretty-petals-public')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/pretty-petals-public/index.html'));
+  });
+}
 
 // Error handling
 app.use((req, res, next) => next(createError(404)));
@@ -87,14 +89,14 @@ app.use((err, req, res, next) => {
 
 // Create HTTP and HTTPS servers
 const httpPort = process.env.PORT || 8000;
+const httpsPort = 443;
+
 const httpServer = http.createServer(app);
 httpServer.listen(httpPort, () => console.log(`HTTP server running on port ${httpPort}`));
-httpServer.on('error', (err) => console.error('HTTP Server Error:', err));
 
 if (credentials) {
   const httpsServer = https.createServer(credentials, app);
-  httpsServer.listen(443, () => console.log('HTTPS server running on port 443'));
-  httpsServer.on('error', (err) => console.error('HTTPS Server Error:', err));
+  httpsServer.listen(httpsPort, () => console.log(`HTTPS server running on port ${httpsPort}`));
 }
 
 module.exports = app;
