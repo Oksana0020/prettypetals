@@ -33,7 +33,7 @@ try {
 // Middleware configurations
 const allowedOrigins = process.env.NODE_ENV === 'production'
   ? ['https://prettypetals.onrender.com']
-  : ['http://localhost:4200', 'http://localhost:10000'];
+  : ['http://localhost:4200', 'http://localhost:8000'];
 
 app.use(cors({
   origin: allowedOrigins,
@@ -90,9 +90,10 @@ app.use((err, req, res, next) => {
 });
 
 // Create HTTP and HTTPS servers
-const httpPort = process.env.PORT || 10000;
+const httpPort = process.env.PORT || 8000; 
 const httpsPort = process.env.HTTPS_PORT || 443;
 
+// Create HTTP and HTTPS servers
 const httpServer = http.createServer(app);
 httpServer.listen(httpPort, () => console.log(`HTTP server running on port ${httpPort}`));
 
@@ -100,5 +101,6 @@ if (credentials) {
   const httpsServer = https.createServer(credentials, app);
   httpsServer.listen(httpsPort, () => console.log(`HTTPS server running on port ${httpsPort}`));
 }
+
 
 module.exports = app;
