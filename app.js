@@ -30,8 +30,11 @@ try {
 }
 
 // Middleware configurations
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? ['https://prettypetals.onrender.com']
+  : ['http://localhost:4200', 'http://localhost:8000'];
 app.use(cors({
-  origin: ['http://localhost:4200', 'http://localhost:8000'],
+  origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
 }));
@@ -64,17 +67,18 @@ app.use((req, res, next) => {
   next();
 });
 
-// Redirect root to login
-app.get('/', (req, res) => {
-  res.redirect('/login');
-});
-
+// Routes
 app.use('/', indexRouter);
 app.use('/api', apiRoutes);
 
-app.use((req, res, next) => next(createError(404)));
+// Serve Angular app (fallback for unmatched routes)
+app.use(express.static(path.join(__dirname, 'dist/pretty-petals-public')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/pretty-petals-public/index.html'));
+});
 
-// Error handler middleware
+// Error handling
+app.use((req, res, next) => next(createError(404)));
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -82,8 +86,9 @@ app.use((err, req, res, next) => {
 });
 
 // Create HTTP and HTTPS servers
+const httpPort = process.env.PORT || 8000;
 const httpServer = http.createServer(app);
-httpServer.listen(8000, () => console.log('HTTP server running on port 8000'));
+httpServer.listen(httpPort, () => console.log(`HTTP server running on port ${httpPort}`));
 httpServer.on('error', (err) => console.error('HTTP Server Error:', err));
 
 if (credentials) {
